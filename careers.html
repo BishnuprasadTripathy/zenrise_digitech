@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers & Open Internships | Zenrise Digitech</title>
+  <meta name="description" content="Explore Remote Open Internships at Zenrise Digitech: Web Development, SEO, Graphic Design, Video Editing, Google Ads, Performance Marketing, Social Media, Lead Gen, and BDA." />
+  <link rel="icon" type="image/jpeg" href="zenrise_logo.jpeg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            solar: { 400: '#ffa726', 500: '#FF5722', 600: '#F4511E', 700: '#E64A19' },
+            obsidian: { 950: '#07080B', 900: '#0B0C10', 850: '#11131A', 800: '#171A24' },
+            sunrise: { gold: '#FF9100', amber: '#FFC107' }
+          },
+          fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'], display: ['Outfit', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-obsidian-950 text-slate-100 font-sans antialiased selection:bg-solar-500 selection:text-white">
+
+  <div id="custom-cursor-dot"></div>
+  <div id="custom-cursor-ring"></div>
+  <canvas id="sunrise-canvas" class="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-90"></canvas>
+
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-obsidian-950/85 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-solar-500 to-sunrise-gold p-[2px] shadow-solar-glow group-hover:scale-105 transition-transform duration-300">
+            <img src="zenrise_logo.jpeg" alt="Zenrise Digitech" class="w-10 h-10 object-cover rounded-xl border border-solar-500/50 shadow-solar-glow" />
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">ZENRISE<span class="inline-block w-2 h-2 rounded-full bg-solar-500 animate-pulse"></span></span>
+            <span class="text-[10px] font-bold tracking-[0.25em] text-solar-400 uppercase -mt-1">DIGITECH</span>
+          </div>
+        </a>
+
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2 glass-panel px-4 py-1.5 rounded-full border border-white/10">
+          <a href="index.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Home</a>
+          <a href="aboutus.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">About Us</a>
+          <a href="services.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Services</a>
+          <a href="portfolio.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Portfolio</a>
+          <a href="industries.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Industries</a>
+          <a href="careers.html" class="px-3 py-1.5 text-xs font-semibold text-white bg-solar-500/20 border border-solar-500/40 rounded-full transition-all">Careers</a>
+          <a href="contact.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Contact Us</a>
+        </nav>
+
+        <div class="hidden lg:flex items-center gap-3">
+          <button id="cursor-toggle-btn" class="p-2 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-all bg-solar-500/20 border-solar-500/50 text-solar-400 shadow-solar-glow/20">
+            <i data-lucide="mouse-pointer" class="w-3.5 h-3.5"></i><span id="cursor-toggle-label" class="text-[11px] font-semibold">Cursor On</span>
+          </button>
+          <button id="theme-toggle-btn" title="Toggle Light / Dark Mode" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-slate-300 hover:text-white hover:border-solar-500/40 transition-all">
+            <i id="theme-sun-icon" data-lucide="sun" class="w-4 h-4 text-sunrise-gold"></i>
+            <i id="theme-moon-icon" data-lucide="moon" class="w-4 h-4 text-solar-500 hidden"></i>
+          </button>
+          <a href="contact.html" class="btn-magnetic relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-bold text-white rounded-xl bg-gradient-to-r from-solar-500 via-sunrise-gold to-solar-500 shadow-solar-glow hover:scale-105 transition-all">
+            <span class="flex items-center gap-2"><i data-lucide="sparkles" class="w-3.5 h-3.5 animate-spin-slow"></i>Book Strategy Call</span>
+          </a>
+        </div>
+
+        <!-- Mobile Controls & Hamburger Button -->
+        <div class="flex items-center gap-2 md:hidden">
+          <button id="theme-toggle-btn-mobile" title="Toggle Light / Dark Mode" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-slate-300">
+            <i data-lucide="sun" class="w-4 h-4 text-sunrise-gold"></i>
+          </button>
+          <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-white">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu-dropdown" class="hidden md:hidden bg-obsidian-950/95 backdrop-blur-2xl border-b border-white/10 px-6 py-4 transition-all">
+      <nav class="flex flex-col gap-3">
+        <a href="index.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Home</a>
+        <a href="aboutus.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">About Us</a>
+        <a href="services.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Services</a>
+        <a href="portfolio.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Portfolio</a>
+        <a href="industries.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Industries</a>
+        <a href="careers.html" class="px-3 py-2 text-sm font-semibold text-white bg-solar-500/20 border border-solar-500/40 rounded-xl">Careers</a>
+        <a href="contact.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Contact Us</a>
+        <a href="contact.html" class="mt-2 py-3 text-center text-xs font-bold text-white rounded-xl bg-gradient-to-r from-solar-500 to-sunrise-gold shadow-solar-glow">Book Strategy Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="theme-section relative min-h-[55vh] pt-36 pb-20 overflow-hidden sunrise-bg-glow bg-obsidian-950/40 backdrop-blur-[2px] text-slate-100 border-b border-white/10 flex items-center">
+    <div class="hero-animated-beam"></div>
+    <div class="hero-orb-1"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-solar-500/30 text-xs font-bold text-solar-400 mb-6 shadow-solar-glow/20">
+        <i data-lucide="briefcase" class="w-3.5 h-3.5 text-sunrise-gold"></i><span>Join Our High-Growth Team</span>
+      </div>
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6">
+        Open Internships <span class="text-gradient-sunrise"></span>
+      </h1>
+      <p class="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        Kickstart your career with Zenrise Digitech. Gain real-world experience, work on client projects, and grow alongside industry leaders.
+      </p>
+    </div>
+  </section>
+
+  <main id="post-hero-main" class="relative z-10 transition-colors duration-300">
+    <section class="theme-section py-24 relative overflow-hidden bg-obsidian-900 border-b border-slate-200/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16">
+          <span class="text-xs font-bold uppercase tracking-widest text-solar-500 mb-3 flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 100% Remote Internships
+          </span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+            Select Your <span class="text-gradient-sunrise">Domain & Apply</span>
+          </h2>
+          <p class="text-sm opacity-80 leading-relaxed">Choose your specialization below and submit your application directly via our official recruitment portal.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          
+          <!-- Internship 1 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">01</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Web Designer and Developers</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Build responsive web layouts, component systems, UI/UX designs, and front-end code.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 2 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">02</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">SEO Analyst</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Keyword research, technical audits, on-page optimization, and organic traffic reporting.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 3 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">03</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Graphic Designers</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Craft vector brand assets, social media graphics, visual identity palettes, and pitch decks.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 4 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">04</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Video Editors</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Edit viral short-form video reels, promotional cuts, and motion graphic assets in CapCut/Premiere.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 5 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">05</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Google Ads Analyst</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Search PPC campaign structure, keyword bidding optimization, and conversion tracking analysis.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 6 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">06</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Performance Marketing</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Meta & Google ad funnels, remarketing pixels, A/B creative testing, and ROAS performance tracking.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 7 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">07</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Social Media Marketing</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Instagram, LinkedIn & YouTube content planning, reel publishing, and audience engagement strategy.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 8 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">08</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Lead Generation Specialist</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Prospect research, B2B lead list building, outreach sequences, and pipeline qualification.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+          <!-- Internship 9 -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-6 border border-slate-200/20 shadow-xl flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-solar-500/15 text-solar-500 flex items-center justify-center font-bold">09</div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 text-[10px] font-bold">Remote</span>
+              </div>
+              <h3 class="font-display text-xl font-bold mb-2">Business Development Associates</h3>
+              <p class="text-xs opacity-75 leading-relaxed mb-6">Client consultation, strategic partnership outreach, and revenue growth initiatives.</p>
+            </div>
+            <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="w-full py-3 rounded-xl bg-solar-500/20 border border-solar-500/40 text-solar-400 text-xs font-bold text-center group-hover:bg-solar-500 group-hover:text-white transition-all flex items-center justify-center gap-2">
+              <span>Apply Now</span> <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Call to Action Application Box -->
+        <div class="max-w-3xl mx-auto theme-card glass-panel light-glass-panel rounded-3xl p-8 sm:p-10 border border-solar-500/30 text-center shadow-solar-glow/20">
+          <h3 class="font-display text-2xl font-bold mb-2">Ready to Start Your Internship?</h3>
+          <p class="text-xs opacity-80 mb-6">Fill out the official Google Application Form to submit your resume and portfolio.</p>
+          <a href="https://forms.gle/zKzpjFd5oNsAL1FL6" target="_blank" rel="noopener noreferrer" class="btn-magnetic px-8 py-4 rounded-xl bg-gradient-to-r from-solar-500 via-sunrise-gold to-solar-500 text-white text-xs font-bold inline-flex items-center gap-2 shadow-solar-glow hover:scale-105 transition-all">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Open Official Application Form (Google Form)
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer" class="bg-obsidian-950 border-t border-slate-200/20 pt-16 pb-12 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-xs">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="zenrise_logo.jpeg" alt="Zenrise Logo" class="w-10 h-10 object-cover rounded-xl border border-solar-500/50 shadow-solar-glow" />
+            <span class="font-display text-xl font-black">ZENRISE DIGITECH</span>
+          </div>
+          <p class="opacity-70 leading-relaxed mb-4">Bangalore’s full-service digital agency. Powered by data-backed SEO, website engineering, and performance advertising.</p>
+        </div>
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li><a href="index.html" class="hover:text-solar-500">Home</a></li>
+            <li><a href="aboutus.html" class="hover:text-solar-500">About Us</a></li>
+            <li><a href="services.html" class="hover:text-solar-500">Services</a></li>
+            <li><a href="portfolio.html" class="hover:text-solar-500">Portfolio</a></li>
+            <li><a href="industries.html" class="hover:text-solar-500">Industries</a></li>
+            <li><a href="careers.html" class="hover:text-solar-500">Careers</a></li>
+            <li><a href="contact.html" class="hover:text-solar-500">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Capabilities</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li><a href="services/seo.html" class="hover:text-solar-500">SEO Search Dominance</a></li>
+            <li><a href="services/website-engineering.html" class="hover:text-solar-500">Website Engineering</a></li>
+            <li><a href="services/performance-marketing.html" class="hover:text-solar-500">Paid Performance Ads</a></li>
+            <li><a href="services/social-media.html" class="hover:text-solar-500">Social Content Strategy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Contact Info</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-solar-500"></i> +91 8431241600 / +91 7981496591</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-solar-500"></i> prashanthb@zenrisedigitech.com</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-solar-500"></i> Bangalore, Karnataka, India</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-slate-200/20 flex flex-col sm:flex-row items-center justify-between text-xs opacity-60 gap-4">
+        <div>© 2026 Zenrise Digitech. All rights reserved.</div>
+        <a href="#hero" class="hover:text-solar-500 flex items-center gap-1">Back to top <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Services | Zenrise Digitech - Full-Spectrum Digital Agency</title>
+  <meta name="description" content="Explore Zenrise Digitech's full suite of digital marketing and web solutions: SEO search dominance, custom website engineering, performance advertising, social media reels, and brand strategy." />
+  <link rel="icon" type="image/jpeg" href="zenrise_logo.jpeg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Vector Icons Library -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            solar: {
+              400: '#ffa726',
+              500: '#FF5722',
+              600: '#F4511E',
+              700: '#E64A19',
+            },
+            obsidian: {
+              950: '#07080B',
+              900: '#0B0C10',
+              850: '#11131A',
+              800: '#171A24',
+            },
+            sunrise: {
+              gold: '#FF9100',
+              amber: '#FFC107',
+            }
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-obsidian-950 text-slate-100 font-sans antialiased selection:bg-solar-500 selection:text-white">
+
+  <!-- Custom Dual-Ring Cursor DOM Elements -->
+  <div id="custom-cursor-dot"></div>
+  <div id="custom-cursor-ring"></div>
+
+  <!-- Ambient Sunrise Particle Canvas -->
+  <canvas id="sunrise-canvas" class="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-90"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 bg-obsidian-950/85 backdrop-blur-xl border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between">
+        
+        <!-- Brand Logo -->
+        <a href="index.html" class="flex items-center gap-3 group">
+          <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-solar-500 to-sunrise-gold p-[2px] shadow-solar-glow group-hover:scale-105 transition-transform duration-300">
+            <img src="zenrise_logo.jpeg" alt="Zenrise Digitech" class="w-10 h-10 object-cover rounded-xl border border-solar-500/50 shadow-solar-glow" />
+          </div>
+          <div class="flex flex-col">
+            <span class="font-display text-xl font-extrabold tracking-tight text-white flex items-center gap-1.5">
+              ZENRISE
+              <span class="inline-block w-2 h-2 rounded-full bg-solar-500 animate-pulse"></span>
+            </span>
+            <span class="text-[10px] font-bold tracking-[0.25em] text-solar-400 uppercase -mt-1">
+              DIGITECH
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex items-center gap-1 lg:gap-2 glass-panel px-4 py-1.5 rounded-full border border-white/10">
+          <a href="index.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Home</a>
+          <a href="aboutus.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">About Us</a>
+          <a href="services.html" class="px-3 py-1.5 text-xs font-semibold text-white bg-solar-500/20 border border-solar-500/40 rounded-full transition-all">Services</a>
+          <a href="portfolio.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Portfolio</a>
+          <a href="industries.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Industries</a>
+          <a href="careers.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Careers</a>
+          <a href="contact.html" class="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/5 rounded-full transition-all">Contact Us</a>
+        </nav>
+
+        <!-- Action Controls -->
+        <div class="hidden lg:flex items-center gap-3">
+          <button id="cursor-toggle-btn" class="p-2 rounded-xl border text-xs font-medium flex items-center gap-1.5 transition-all bg-solar-500/20 border-solar-500/50 text-solar-400 shadow-solar-glow/20">
+            <i data-lucide="mouse-pointer" class="w-3.5 h-3.5"></i>
+            <span id="cursor-toggle-label" class="text-[11px] font-semibold">Cursor On</span>
+          </button>
+
+          <button id="theme-toggle-btn" title="Toggle Light / Dark Mode" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-slate-300 hover:text-white hover:border-solar-500/40 transition-all">
+            <i id="theme-sun-icon" data-lucide="sun" class="w-4 h-4 text-sunrise-gold"></i>
+            <i id="theme-moon-icon" data-lucide="moon" class="w-4 h-4 text-solar-500 hidden"></i>
+          </button>
+
+          <a href="contact.html" class="btn-magnetic relative inline-flex items-center justify-center px-5 py-2.5 text-xs font-bold tracking-wide text-white rounded-xl bg-gradient-to-r from-solar-500 via-sunrise-gold to-solar-500 shadow-solar-glow hover:scale-105 transition-all">
+            <span class="flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 animate-spin-slow"></i>
+              Book Strategy Call
+            </span>
+          </a>
+        </div>
+
+        <!-- Mobile Controls & Hamburger Button -->
+        <div class="flex items-center gap-2 md:hidden">
+          <button id="theme-toggle-btn-mobile" title="Toggle Light / Dark Mode" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-slate-300">
+            <i data-lucide="sun" class="w-4 h-4 text-sunrise-gold"></i>
+          </button>
+          <button id="mobile-menu-btn" aria-label="Toggle Navigation Menu" class="p-2 rounded-xl bg-obsidian-850 border border-white/10 text-white">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu-dropdown" class="hidden md:hidden bg-obsidian-950/95 backdrop-blur-2xl border-b border-white/10 px-6 py-4 transition-all">
+      <nav class="flex flex-col gap-3">
+        <a href="index.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Home</a>
+        <a href="aboutus.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">About Us</a>
+        <a href="services.html" class="px-3 py-2 text-sm font-semibold text-white bg-solar-500/20 border border-solar-500/40 rounded-xl">Services</a>
+        <a href="portfolio.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Portfolio</a>
+        <a href="industries.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Industries</a>
+        <a href="careers.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Careers</a>
+        <a href="contact.html" class="px-3 py-2 text-sm font-semibold text-slate-300 hover:text-white rounded-xl">Contact Us</a>
+        <a href="contact.html" class="mt-2 py-3 text-center text-xs font-bold text-white rounded-xl bg-gradient-to-r from-solar-500 to-sunrise-gold shadow-solar-glow">Book Strategy Call</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 1. SERVICES HERO SECTION -->
+  <section id="hero" class="theme-section relative min-h-[55vh] pt-36 pb-20 overflow-hidden sunrise-bg-glow bg-obsidian-950/40 backdrop-blur-[2px] text-slate-100 border-b border-white/10 flex items-center">
+    <div class="hero-animated-beam"></div>
+    <div class="hero-orb-1"></div>
+    <div class="hero-orb-2"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center">
+      <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-panel border border-solar-500/30 text-xs font-bold text-solar-400 mb-6 shadow-solar-glow/20 reveal">
+        <i data-lucide="layers" class="w-3.5 h-3.5 text-sunrise-gold"></i>
+        <span>Full-Spectrum Digital Growth Suite</span>
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-6 reveal reveal-delay-1">
+        Engineered for <span class="text-gradient-sunrise">Exponential Revenue</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed reveal reveal-delay-2">
+        Click on any core service below to explore its dedicated deep-dive page, key deliverables, tools, and technical execution methodology.
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN SERVICES CATALOG -->
+  <main id="post-hero-main" class="relative z-10 transition-colors duration-300">
+    <section class="theme-section py-24 relative overflow-hidden bg-obsidian-900 border-b border-slate-200/20 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Service 1: SEO -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-1 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="search" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 01</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">SEO</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">Organic Ranking & High-Intent Leads</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Dominating Google search results for high-value transactional keywords through technical audits, content silos, and backlink authority.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">Ahrefs • SEMrush • Schema</span>
+              <a href="services/seo.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 2: Web Engineering -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-2 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="layout" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 02</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">Website Design & Development</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">Conversion-Focused Web Apps</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Building modern, ultra-fast responsive web apps designed to captivate visitors, pass 95+ Core Web Vitals, and maximize conversion rates.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">React • Tailwind • Figma</span>
+              <a href="services/website-engineering.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 3: Performance Marketing -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-3 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="target" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 03</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">Performance Marketing</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">High-ROAS Meta & Google PPC Scaling</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Laser-focused paid advertising campaigns across Google PPC, Meta retargeting, and LinkedIn Ads built for 4x+ ROAS.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">Google PPC • Meta Ads</span>
+              <a href="services/performance-marketing.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 4: Social Media -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-1 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="share-2" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 04</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">Social Media & Content Strategy</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">Viral Reels & Brand Storytelling</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Captivating your audience across Instagram, LinkedIn, and YouTube with high-grade visual content, viral video reels, and community growth.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">Reels • CapCut • Premiere</span>
+              <a href="services/social-media.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 5: Brand Strategy -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-2 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="compass" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 05</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">Google Ads</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">Positioning & Visual Differentiation</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Forging memorable brand identities with custom vector logos, typography hierarchies, brand stylebooks, and market positioning.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">Logo Suite • Brand Book</span>
+              <a href="services/brand-strategy.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Service 6: Influencer & Email -->
+          <div class="theme-card glass-panel glass-panel-hover light-glass-panel light-glass-panel-hover rounded-3xl p-8 flex flex-col justify-between group reveal reveal-delay-3 border border-slate-200/20 shadow-xl">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-solar-500/15 border border-solar-500/30 flex items-center justify-center text-solar-500">
+                  <i data-lucide="mail" class="w-7 h-7"></i>
+                </div>
+                <span class="text-[10px] font-bold text-solar-500 uppercase tracking-widest px-3 py-1 rounded-full bg-solar-500/10">Core Service 06</span>
+              </div>
+              <h3 class="font-display text-2xl font-black mb-3">Influencer & Email Marketing</h3>
+              <p class="text-xs font-semibold text-solar-500 mb-4">Nurture Automation & Creator Deals</p>
+              <p class="text-xs opacity-80 leading-relaxed mb-8">Leveraging creator trust and automated Klaviyo email sequences to multiply customer lifetime value and drive repeat purchases.</p>
+            </div>
+            <div class="pt-6 border-t border-slate-200/20 flex items-center justify-between">
+              <span class="text-[11px] opacity-70">Klaviyo • UGC Creator Deals</span>
+              <a href="services/influencer-email.html" class="px-4 py-2 rounded-xl bg-solar-500/15 border border-solar-500/40 text-solar-500 text-xs font-bold flex items-center gap-1.5 group-hover:bg-solar-500 group-hover:text-white transition-all shadow-solar-glow/20">
+                <span>Explore Details</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ZENRISE GROWTH ENGINE PROCESS -->
+    <section class="theme-section py-24 relative overflow-hidden bg-obsidian-950 border-b border-slate-200/20 transition-colors duration-300">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 reveal">
+          <span class="text-xs font-bold uppercase tracking-widest text-solar-500 mb-3">Execution Methodology</span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4">
+            How We Execute <span class="text-gradient-sunrise">Our Services</span>
+          </h2>
+          <p class="text-sm sm:text-base opacity-80 leading-relaxed">Our systematic 4-step framework takes your brand from digital obscurity to industry market leadership.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="theme-card glass-panel light-glass-panel rounded-3xl p-6 flex flex-col justify-between reveal reveal-delay-1">
+            <span class="font-display text-4xl font-black opacity-20 text-solar-500 mb-4">01</span>
+            <h3 class="font-display text-lg font-bold mb-2">Audit & Intel</h3>
+            <p class="text-xs opacity-80 leading-relaxed mb-4">Diagnosing site metrics, keyword gaps, and competitor strategies.</p>
+          </div>
+          <div class="theme-card glass-panel light-glass-panel rounded-3xl p-6 flex flex-col justify-between reveal reveal-delay-2">
+            <span class="font-display text-4xl font-black opacity-20 text-solar-500 mb-4">02</span>
+            <h3 class="font-display text-lg font-bold mb-2">Growth Blueprint</h3>
+            <p class="text-xs opacity-80 leading-relaxed mb-4">Mapping acquisition funnels, target ROAS, and content silos.</p>
+          </div>
+          <div class="theme-card glass-panel light-glass-panel rounded-3xl p-6 flex flex-col justify-between reveal reveal-delay-3">
+            <span class="font-display text-4xl font-black opacity-20 text-solar-500 mb-4">03</span>
+            <h3 class="font-display text-lg font-bold mb-2">Rapid Launch</h3>
+            <p class="text-xs opacity-80 leading-relaxed mb-4">Deploying custom web builds, ad campaigns, and SEO assets.</p>
+          </div>
+          <div class="theme-card glass-panel light-glass-panel rounded-3xl p-6 flex flex-col justify-between reveal reveal-delay-4">
+            <span class="font-display text-4xl font-black opacity-20 text-solar-500 mb-4">04</span>
+            <h3 class="font-display text-lg font-bold mb-2">AI Scaling</h3>
+            <p class="text-xs opacity-80 leading-relaxed mb-4">Daily A/B split optimization, pixel tuning, and ROAS budget expansion.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="theme-section py-20 relative overflow-hidden bg-obsidian-900 transition-colors duration-300">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center reveal">
+        <div class="theme-card glass-panel light-glass-panel rounded-3xl p-8 sm:p-12 border border-solar-500/30 shadow-solar-glow/20">
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold mb-4">Unsure Which Service <span class="text-gradient-sunrise">Fits Your Goals</span>?</h2>
+          <p class="text-xs sm:text-sm opacity-80 max-w-xl mx-auto mb-8">Speak with our senior growth architects for a custom digital audit and recommendation.</p>
+          <a href="contact.html" class="btn-magnetic inline-flex items-center justify-center px-8 py-4 text-sm font-bold text-white rounded-2xl bg-gradient-to-r from-solar-500 via-sunrise-gold to-solar-500 shadow-solar-glow hover:scale-105 transition-all gap-2">
+            <span>Book Free Audit Session</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="site-footer" class="bg-obsidian-950 border-t border-slate-200/20 pt-16 pb-12 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12 text-xs">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <img src="zenrise_logo.jpeg" alt="Zenrise Logo" class="w-10 h-10 object-cover rounded-xl border border-solar-500/50 shadow-solar-glow" />
+            <span class="font-display text-xl font-black">ZENRISE DIGITECH</span>
+          </div>
+          <p class="opacity-70 leading-relaxed mb-4">Bangalore’s full-service digital agency. Powered by data-backed SEO, website engineering, and performance advertising.</p>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Quick Links</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li><a href="index.html" class="hover:text-solar-500">Home</a></li>
+            <li><a href="aboutus.html" class="hover:text-solar-500">About Us</a></li>
+            <li><a href="services.html" class="hover:text-solar-500">Services</a></li>
+            <li><a href="portfolio.html" class="hover:text-solar-500">Portfolio</a></li>
+            <li><a href="industries.html" class="hover:text-solar-500">Industries</a></li>
+            <li><a href="careers.html" class="hover:text-solar-500">Careers</a></li>
+            <li><a href="contact.html" class="hover:text-solar-500">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Capabilities</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li><a href="services/seo.html" class="hover:text-solar-500">SEO Search Dominance</a></li>
+            <li><a href="services/website-engineering.html" class="hover:text-solar-500">Website Engineering</a></li>
+            <li><a href="services/performance-marketing.html" class="hover:text-solar-500">Paid Performance Ads</a></li>
+            <li><a href="services/social-media.html" class="hover:text-solar-500">Social Content Strategy</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-display font-bold uppercase tracking-wider mb-4">Contact Info</h4>
+          <ul class="flex flex-col gap-2 opacity-70">
+            <li class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-solar-500"></i> +91 8431241600 / +91 7981496591</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-solar-500"></i> prashanthb@zenrisedigitech.com</li>
+            <li class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-solar-500"></i> Bangalore, Karnataka, India</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-200/20 flex flex-col sm:flex-row items-center justify-between text-xs opacity-60 gap-4">
+        <div>© 2026 Zenrise Digitech. All rights reserved. Designed for performance.</div>
+        <a href="#hero" class="hover:text-solar-500 flex items-center gap-1">Back to top <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom JavaScript Engine -->
+  <script src="app.js"></script>
+</body>
+</html>
